@@ -1,0 +1,77 @@
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tagesschau
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  crawler:
+    build:
+      context: ./crawler
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: tagesschau
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    volumes:
+      - ./crawler:/app
+
+  controller:
+    build:
+      context: ./controller_api
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      crawler:
+        condition: service_started
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: tagesschau
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      CRAWLER_SERVICE: crawler
+      CRAWLER_PORT: 8000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./controller_api:/app
+
+  explorer:
+    build:
+      context: ./explorer_api
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: tagesschau
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./explorer_api:/app
+
+volumes:
+  postgres_data:

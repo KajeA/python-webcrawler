@@ -1,0 +1,212 @@
+{
+  "info": {
+    "_postman_id": "b1f7c4f7-5340-4f3a-9be5-8f4e1d85f14e",
+    "name": "Tagesschau Crawler",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Controller API",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Get Crawler Config",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/config",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "config"]
+            }
+          }
+        },
+        {
+          "name": "Increase Schedule",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/api/config/schedule/increase",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "config", "schedule", "increase"]
+            }
+          }
+        },
+        {
+          "name": "Decrease Schedule",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/api/config/schedule/decrease",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "config", "schedule", "decrease"]
+            }
+          }
+        },
+        {
+          "name": "Enable Crawler",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/api/config/enable",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "config", "enable"]
+            }
+          }
+        },
+        {
+          "name": "Disable Crawler",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/api/config/disable",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "config", "disable"]
+            }
+          }
+        },
+        {
+          "name": "Trigger Overview Crawl",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/api/crawl/overview",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crawl", "overview"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Explorer API",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5001/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "List Articles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5001/api/articles?page=1&per_page=20",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "articles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Article",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5001/api/articles/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "articles", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Article Versions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5001/api/articles/1/versions",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "articles", "1", "versions"]
+            }
+          }
+        },
+        {
+          "name": "Check Article Changes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5001/api/articles/1/changes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "articles", "1", "changes"]
+            }
+          }
+        },
+        {
+          "name": "Search Articles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5001/api/search?q=politik&page=1&per_page=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "politik"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
